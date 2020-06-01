@@ -1,0 +1,18 @@
+FROM node:12.17.0-alpine AS client
+WORKDIR /app
+COPY web /app
+RUN npm install \
+  && npm run-script build \
+  && rm -rf node_modules
+
+FROM node:12.17.0-alpine AS server
+WORKDIR /app
+COPY server /app
+COPY --from=client /app/build /app/public
+RUN npm install \
+  && npm run build \
+  && rm -rf node_modules src
+
+EXPOSE 3333
+
+CMD ["npm", "run", "prod"]

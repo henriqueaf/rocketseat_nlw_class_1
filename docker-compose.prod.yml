@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  nlw_class_1_prod:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.prod
+    image: nlw_class_1_production
+    container_name: nlw_class_1_production
+    ports:
+      - '3333:3333'
+    command: npm run prod
