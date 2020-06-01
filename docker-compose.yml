@@ -1,12 +1,34 @@
 version: '3'
 
 services:
-  nlw_class_1:
+  server:
     build:
       context: .
-      dockerfile: ./Dockerfile
-    image: nlw_class_1
-    container_name: nlw_class_1
+      dockerfile: ./server/Dockerfile
+    image: nlw_class_1_server
+    container_name: nlw_class_1_server
+    environment:
+      NODE_ENV: development
     ports:
       - '3333:3333'
     command: npm run dev
+    volumes:
+      # /app is the folder created for the application in Dockerfile
+      - ./server:/app
+  web:
+    build:
+      context: .
+      dockerfile: ./web/Dockerfile
+    image: nlw_class_1_web
+    container_name: nlw_class_1_web
+    stdin_open: true
+    environment:
+      NODE_ENV: development
+    ports:
+      - '3000:3000'
+    command: npm start
+    depends_on:
+      - server
+    volumes:
+      # /app is the folder created for the application in Dockerfile
+      - ./web:/app
