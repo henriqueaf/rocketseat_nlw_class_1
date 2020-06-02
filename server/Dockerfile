@@ -1,9 +1,10 @@
 FROM node:12.17.0-alpine
-WORKDIR /app
 
-COPY . /app
-RUN ls -la \
-  && npm install --silent
+ENV APP_HOME="/app"
+
+WORKDIR $APP_HOME
+
+COPY . $APP_HOME
 
 EXPOSE 3333
 

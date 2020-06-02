@@ -3,22 +3,23 @@ version: '3'
 services:
   server:
     build:
-      context: .
-      dockerfile: ./server/Dockerfile
+      context: ./server
+      dockerfile: ./Dockerfile
     image: nlw_class_1_server
     container_name: nlw_class_1_server
     environment:
       NODE_ENV: development
     ports:
       - '3333:3333'
-    command: npm run dev
+    command: sh ./scripts/start.sh
     volumes:
       # /app is the folder created for the application in Dockerfile
       - ./server:/app
+      # - '/app/node_modules'
   web:
     build:
-      context: .
-      dockerfile: ./web/Dockerfile
+      context: ./web
+      dockerfile: ./Dockerfile
     image: nlw_class_1_web
     container_name: nlw_class_1_web
     stdin_open: true
@@ -26,9 +27,10 @@ services:
       NODE_ENV: development
     ports:
       - '3000:3000'
-    command: npm start
+    command: sh ./scripts/start.sh
     depends_on:
       - server
     volumes:
       # /app is the folder created for the application in Dockerfile
       - ./web:/app
+      # - '/app/node_modules'
