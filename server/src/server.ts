@@ -5,7 +5,7 @@ import routes from './routes';
 
 const app = express();
 
-app.use(cors);
+app.use(cors());
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use('/uploads', express.static(path.resolve(__dirname, '..', 'uploads')));
 app.use(express.json());
