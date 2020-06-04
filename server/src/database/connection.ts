@@ -8,8 +8,11 @@ const connnection = knex({
   },
   useNullAsDefault: true,
   pool: {
-    min: 1,
-    max: 20,
+    min: 2,
+    max: 6,
+    acquireTimeoutMillis: 30000,
+    idleTimeoutMillis: 30000,
+    reapIntervalMillis: 1000,
   },
 });
 
